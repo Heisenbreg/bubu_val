@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Be My Valentine ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+  font-family: "Poppins", Arial, sans-serif;
+}
+
+/* ===== MAIN LAYOUT ===== */
+.layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+/* ===== SIDE PHOTOS ===== */
+.side-photo {
+  width: 280px;
+  max-width: 32vw;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+  transition: transform 0.4s ease;
+  z-index: 1;
+}
+
+.side-photo:hover {
+  transform: scale(1.05);
+}
+
+/* ===== CARD ===== */
+.card {
+  background: white;
+  width: 360px;
+  padding: 28px;
+  border-radius: 26px;
+  text-align: center;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+  position: relative;
+  z-index: 5;
+}
+
+.scene {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+}
+
+/* ================= COUPLE RIG ================= */
+.couple {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 200px;
+}
+
+.boy-wrapper,
+.girl-wrapper {
+  position: absolute;
+  bottom: 0;
+  transition: all 2.8s ease-in-out;
+}
+
+.boy-wrapper { left: -120px; }
+.girl-wrapper { right: -120px; }
+
+.meet .boy-wrapper { left: 120px; }
+.meet .girl-wrapper { right: 120px; }
+
+.dance {
+  animation: coupleDance 1.8s infinite ease-in-out;
+}
+
+@keyframes coupleDance {
+  0% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+  100% { transform: rotate(-3deg); }
+}
+
+.kiss .boy-wrapper { left: 140px; }
+.kiss .girl-wrapper { right: 140px; }
+
+/* ================= CHARACTERS ================= */
+.character {
+  width: 78px;
+  position: relative;
+  z-index: 5;
+}
+
+.head {
+  width: 38px;
+  height: 38px;
+  background: #ffd1a9;
+  border-radius: 50%;
+  margin: auto;
+  position: relative;
+}
+
+.eye {
+  width: 5px;
+  height: 5px;
+  background: #000;
+  border-radius: 50%;
+  position: absolute;
+  top: 14px;
+}
+.eye.left { left: 10px; }
+.eye.right { right: 10px; }
+
+.smile {
+  width: 14px;
+  height: 8px;
+  border-bottom: 2px solid #000;
+  border-radius: 0 0 14px 14px;
+  position: absolute;
+  bottom: 7px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.blush {
+  position: absolute;
+  width: 8px;
+  height: 6px;
+  background: #ff9aa2;
+  border-radius: 50%;
+  top: 20px;
+  opacity: 0;
+}
+.blush.left { left: 5px; }
+.blush.right { right: 5px; }
+
+.kissing .blush { opacity: 1; }
+
+.body {
+  width: 38px;
+  height: 52px;
+  border-radius: 18px;
+  margin: 6px auto;
+}
+
+.boy .body { background: #4a90e2; }
+.girl .body { background: #ff7aa2; }
+
+.legs {
+  display: flex;
+  justify-content: space-between;
+  width: 36px;
+  margin: auto;
+}
+
+.leg {
+  width: 9px;
+  height: 32px;
+  background: #333;
+  border-radius: 6px;
+}
+
+.hand {
+  position: absolute;
+  width: 18px;
+  height: 6px;
+  background: #ffd1a9;
+  top: 80px;
+  border-radius: 4px;
+}
+
+.boy .hand { right: -6px; }
+.girl .hand { left: -6px; }
+
+/* ================= HEART ================= */
+.heart {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 28px;
+  opacity: 0;
+  z-index: 10;
+}
+
+.pulse {
+  opacity: 1;
+  animation: pulse 0.9s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.25); }
+  100% { transform: translateX(-50%) scale(1); }
+}
+
+/* ================= QUESTION ================= */
+.question {
+  display: none;
+  margin-top: 14px;
+}
+
+.buttons {
+  position: relative;
+  height: 70px;
+  margin-top: 18px;
+}
+
+button {
+  padding: 12px 26px;
+  border-radius: 25px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  position: absolute;
+}
+
+#yes { background: #ff4d6d; color: white; left: 40px; }
+#no { background: #ddd; left: 180px; z-index: 9999; }
+
+.confetti {
+  position: fixed;
+  font-size: 18px;
+  animation: floatHeart 3.5s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes floatHeart {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120vh) translateX(var(--drift)) scale(1.4);
+    opacity: 0;
+  }
+}
+
+.success {
+  display: none;
+  color: #ff4d6d;
+  font-size: 17px;
+  margin-top: 14px;
+}
+
+/* ===== FLOATING HEART BACKGROUND ===== */
+#floating-hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.bg-heart {
+  position: absolute;
+  color: rgba(255, 77, 109, 0.6);
+  animation: rise linear forwards;
+}
+
+@keyframes rise {
+  0% {
+    transform: translateY(100vh) scale(0.8);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-10vh) scale(1.4);
+    opacity: 0;
+  }
+}
+
+
+/* ===== MOBILE ===== */
+@media (max-width: 900px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .side-photo {
+    width: 80%;
+    max-width: 320px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="floating-hearts"></div>
+
+<div class="layout">
+
+  <img src="left.jpeg" class="side-photo">
+
+  <div class="card">
+    <div class="scene">
+
+      <div class="couple" id="couple">
+        <div class="boy-wrapper">
+          <div class="character boy">
+            <div class="head">
+              <div class="eye left"></div>
+              <div class="eye right"></div>
+              <div class="smile"></div>
+              <div class="blush left"></div>
+              <div class="blush right"></div>
+            </div>
+            <div class="body"></div>
+            <div class="legs"><div class="leg"></div><div class="leg"></div></div>
+            <div class="hand"></div>
+          </div>
+        </div>
+
+        <div class="girl-wrapper">
+          <div class="character girl">
+            <div class="head">
+              <div class="eye left"></div>
+              <div class="eye right"></div>
+              <div class="smile"></div>
+              <div class="blush left"></div>
+              <div class="blush right"></div>
+            </div>
+            <div class="body"></div>
+            <div class="legs"><div class="leg"></div><div class="leg"></div></div>
+            <div class="hand"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="heart" id="heart">❤️</div>
+    </div>
+
+    <div class="question" id="question">
+      <h2 id="qText"></h2>
+
+      <div class="buttons">
+        <button id="yes">Yes 💖</button>
+        <button id="no">No 💔</button>
+      </div>
+
+      <div class="success" id="successText"></div>
+    </div>
+  </div>
+
+  <img src="right.jpeg" class="side-photo">
+
+</div>
+
+<script>
+const herName = "Chandana";
+const yourName = "Kausthub";
+
+const couple = document.getElementById("couple");
+const heart = document.getElementById("heart");
+const question = document.getElementById("question");
+const noBtn = document.getElementById("no");
+const success = document.getElementById("successText");
+
+document.getElementById("qText").innerHTML =
+  `Will you be my Valentine, <strong>${herName}</strong>? 💌`;
+
+success.innerHTML =
+  `I choose you. Always ❤️<br>— <strong>${yourName}</strong>`;
+
+setTimeout(() => couple.classList.add("meet"), 500);
+setTimeout(() => couple.classList.add("dance"), 3200);
+setTimeout(() => {
+  heart.classList.add("pulse");
+  question.style.display = "block";
+}, 4200);
+
+function startFloatingHearts() {
+  const container = document.getElementById("floating-hearts");
+
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "bg-heart";
+    heart.innerText = "❤️";
+
+    const size = 16 + Math.random() * 24;
+    heart.style.fontSize = size + "px";
+
+    heart.style.left = Math.random() * 100 + "vw";
+
+    const duration = 4 + Math.random() * 4;
+    heart.style.animationDuration = duration + "s";
+
+    container.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, duration * 1000);
+
+  }, 300); // new heart every 300ms
+}
+
+function escape() {
+  noBtn.style.position = "fixed";
+  noBtn.style.zIndex = "9999";
+
+  const padding = 20;
+  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+  noBtn.style.left = Math.random() * maxX + "px";
+  noBtn.style.top = Math.random() * maxY + "px";
+}
+
+noBtn.addEventListener("mouseover", escape);
+noBtn.addEventListener("touchstart", escape);
+
+document.getElementById("yes").addEventListener("click", () => {
+  success.style.display = "block";
+  noBtn.style.display = "none";
+  couple.classList.add("kiss");
+  couple.classList.add("kissing");
+  startFloatingHearts();
+
+  for (let i = 0; i < 50; i++) {
+    const h = document.createElement("div");
+    h.className = "confetti";
+    h.innerText = "❤️";
+    h.style.left = Math.random() * window.innerWidth + "px";
+    h.style.bottom = "-20px";
+    h.style.fontSize = (14 + Math.random() * 16) + "px";
+    h.style.setProperty("--drift", (Math.random() * 200 - 100) + "px");
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 3500);
+  }
+});
+</script>
+
+</body>
+</html>
